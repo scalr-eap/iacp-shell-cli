@@ -1,0 +1,29 @@
+{
+    "data": {
+        "attributes": {
+            "is-destroy": true,
+            "message": "string",
+            "source": "string"
+        },
+        "id": "string",
+        "links": {
+            "self": "string"
+        },
+        "relationships": {
+            "configuration-version": {
+                "data": {
+                    "id": "string",
+                    "type": "configuration-versions"
+                }
+            },
+            "workspace": {
+                "data": {
+                    "id": "string",
+                    "type": "workspaces"
+                }
+            }
+        },
+        "type": "runs"
+    },
+    "meta": {}
+}

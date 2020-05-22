@@ -1,0 +1,14 @@
+{
+    "data": {
+        "attributes": {
+            "name": "string",
+            "provider": "string"
+        },
+        "id": "string",
+        "links": {
+            "self": "string"
+        },
+        "type": "registry-modules"
+    },
+    "meta": {}
+}

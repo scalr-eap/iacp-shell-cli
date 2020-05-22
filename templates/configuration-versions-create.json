@@ -1,0 +1,14 @@
+{
+    "data": {
+        "attributes": {
+            "auto-queue-runs": true,
+            "speculative": true
+        },
+        "id": "string",
+        "links": {
+            "self": "string"
+        },
+        "type": "configuration-versions"
+    },
+    "meta": {}
+}

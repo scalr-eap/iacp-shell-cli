@@ -1,0 +1,32 @@
+{
+    "data": {
+        "attributes": {
+            "auto-apply": true,
+            "name": "string",
+            "queue-all-runs": true,
+            "terraform-version": "string",
+            "vcs-repo": {
+                "branch": "string",
+                "identifier": "string",
+                "ingress-submodules": true,
+                "oauth-token-id": "string",
+                "webhook-url": "string"
+            },
+            "working-directory": "string"
+        },
+        "id": "string",
+        "links": {
+            "self": "string"
+        },
+        "relationships": {
+            "current-run": {
+                "data": {
+                    "id": "string",
+                    "type": "deferred-runs"
+                }
+            }
+        },
+        "type": "workspaces"
+    },
+    "meta": {}
+}

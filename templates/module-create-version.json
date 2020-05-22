@@ -1,0 +1,13 @@
+{
+    "data": {
+        "attributes": {
+            "version": "string"
+        },
+        "id": "string",
+        "links": {
+            "upload": "string"
+        },
+        "type": "registry-module-versions"
+    },
+    "meta": {}
+}

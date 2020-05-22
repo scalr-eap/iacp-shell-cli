@@ -1,0 +1,24 @@
+{
+    "data": {
+        "attributes": {
+            "lineage": "string",
+            "md5": "string",
+            "serial": 1,
+            "state": "string"
+        },
+        "id": "string",
+        "links": {
+            "self": "string"
+        },
+        "relationships": {
+            "run": {
+                "data": {
+                    "id": "string",
+                    "type": "runs"
+                }
+            }
+        },
+        "type": "state-versions"
+    },
+    "meta": {}
+}

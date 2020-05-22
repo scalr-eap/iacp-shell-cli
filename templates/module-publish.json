@@ -1,0 +1,23 @@
+{
+    "data": {
+        "attributes": {
+            "vcs-repo": {
+                "display-identifier": "string",
+                "identifier": "string",
+                "oauth-token-id": "string"
+            }
+        },
+        "id": "string",
+        "links": {},
+        "relationships": {
+            "organization": {
+                "data": {
+                    "id": "string",
+                    "type": "organizations"
+                }
+            }
+        },
+        "type": "registry-modules"
+    },
+    "meta": {}
+}

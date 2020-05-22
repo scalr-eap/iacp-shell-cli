@@ -1,0 +1,26 @@
+{
+    "data": {
+        "attributes": {
+            "category": "terraform",
+            "description": "string",
+            "hcl": true,
+            "key": "string",
+            "sensitive": true,
+            "value": "string"
+        },
+        "id": "string",
+        "links": {
+            "self": "string"
+        },
+        "relationships": {
+            "workspace": {
+                "data": {
+                    "id": "string",
+                    "type": "workspaces"
+                }
+            }
+        },
+        "type": "vars"
+    },
+    "meta": {}
+}
