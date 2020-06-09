@@ -80,8 +80,8 @@ aliases ()
 acc  account
 accs accounts
 app apply
-cfv  configuration_version
-cfvs configuration_versions
+cfv  configuration-version
+cfvs configuration-versions
 cse cost_estimate
 cses cost_estimates
 org organization
@@ -92,8 +92,8 @@ ws workspace
 wss workspaces
 ows org-workspace
 pl plan
-stv state_version
-stvs state_versions
+stv state-version
+stvs state-versions
 !
 }
 obj_alias ()
