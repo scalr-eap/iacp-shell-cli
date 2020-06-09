@@ -221,7 +221,7 @@ if [[ $ACTION == "update" ]]; then
 fi
 
 # For create provide a template
-if [[ $ACTION == "create" ]]; then
+if [[ $ACTION == "create" || $ACTION == "publish" ]]; then
    cp templates/$OBJECT-$ACTION.json $TEMP_FILE
 
    vi $TEMP_FILE
