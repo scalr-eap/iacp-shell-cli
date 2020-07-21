@@ -7,11 +7,13 @@ api()
      curl -s -X ${HTTP_OP} ${API_URL}${THE_PATH} \
                 -H "Authorization: Bearer $TOKEN" \
                 -H "Content-Type: application/vnd.api+json" \
+                -H "prefer: profile=internal" \
 	              --data "@/var/tmp/$0.$$.json"
   else
          curl -s -X ${HTTP_OP} ${API_URL}${THE_PATH} \
                     -H "Authorization: Bearer $TOKEN" \
-                    -H "Content-Type: application/vnd.api+json"
+                    -H "Content-Type: application/vnd.api+json" \
+                    -H "prefer: profile=internal"
   fi
 
 }
