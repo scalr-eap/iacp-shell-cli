@@ -4,16 +4,16 @@ api()
 {
 
   if [[ $HTTP_OP = "POST" || $HTTP_OP = "PATCH" ]]; then
-     curl -s -X ${HTTP_OP} ${API_URL}${THE_PATH} \
+     curl --http1.1 -s -X ${HTTP_OP} ${API_URL}${THE_PATH} \
                 -H "Authorization: Bearer $TOKEN" \
                 -H "Content-Type: application/vnd.api+json" \
-                -H "prefer: profile=internal" \
+                -H "prefer: profile=$PROFILE" \
 	              --data "@/var/tmp/$0.$$.json"
   else
-         curl -s -X ${HTTP_OP} ${API_URL}${THE_PATH} \
+         curl --http1.1 -s -X ${HTTP_OP} ${API_URL}${THE_PATH} \
                     -H "Authorization: Bearer $TOKEN" \
                     -H "Content-Type: application/vnd.api+json" \
-                    -H "prefer: profile=internal"
+                    -H "prefer: profile=$PROFILE"
   fi
 
 }
@@ -21,58 +21,69 @@ api()
 commands()
 {
 cat << !
-account                get     GET /api/iacp/v3/account/details
-apply                  get     GET /api/iacp/v3/applies/{apply}
-configuration-version  get     GET /api/iacp/v3/configuration-versions/{configuration_version}
-ingress-attributes     get     GET /api/iacp/v3/configuration-versions/{configuration_version}/ingress-attributes
-configuration-versions list    GET /api/iacp/v3/workspaces/{workspace}/configuration-versions
-configuration-versions create  POST /api/iacp/v3/workspaces/{workspace}/configuration-versions
-cost-estimate          get     GET /api/iacp/v3/cost-estimates/{cost_estimate}
-cost-estimates         get-log GET /api/iacp/v3/cost-estimates/{cost_estimate}/output
-idps                   list    GET /api/iacp/v3/identity-providers
-idp                    get     GET /api/iacp/v3/identity-providers/{id}
-organizations          list    GET /api/iacp/v3/organizations
-organization           get     GET /api/iacp/v3/organizations/{organization}
-module                 create  POST /api/iacp/v3/organizations/{organization}/registry-modules
-module                 publish POST /api/iacp/v3/registry-modules
-module                 delete  POST /api/iacp/v3/registry-modules/actions/delete/{organization}/{module_name}
-module-provider        delete  POST /api/iacp/v3/registry-modules/actions/delete/{organization}/{module_name}/{provider_name}
-module-version         delete  POST /api/iacp/v3/registry-modules/actions/delete/{organization}/{module_name}/{provider_name}/{version}
-module                 get     GET /api/iacp/v3/registry-modules/{module}
-module                 get-np  GET /api/iacp/v3/registry-modules/{organization}/{module_name}/{module_provider}
-module                 resync  POST /api/iacp/v3/registry-modules/{organization}/{module_name}/{module_provider}/resync
-module                 create-version POST /api/iacp/v3/registry-modules/{organization}/{module_name}/{module_provider}/versions
-module                 resync-version POST /api/iacp/v3/registry-modules/{organization}/{module_name}/{module_provider}/{version}/resync
-workspaces             list    GET /api/iacp/v3/organizations/{organization}/workspaces
-workspace              create  POST /api/iacp/v3/organizations/{organization}/workspaces
-org-workspace          delete  DELETE /api/iacp/v3/organizations/{organization}/workspaces/{workspace_name}
-org-workspace          get     GET /api/iacp/v3/organizations/{organization}/workspaces/{workspace_name}
-org-workspace          update  PATCH /api/iacp/v3/organizations/{organization}/workspaces/{workspace_name}
-workspace              delete  DELETE /api/iacp/v3/workspaces/{workspace}
-workspace              get     GET /api/iacp/v3/workspaces/{workspace}
-workspace              update  PATCH /api/iacp/v3/workspaces/{workspace}
-workspace              lock    POST /api/iacp/v3/workspaces/{workspace}/actions/lock
-workspace              unlock  POST /api/iacp/v3/workspaces/{workspace}/actions/unlock
-plan                   get     GET /api/iacp/v3/plans/{plan}
-run                    create  POST /api/iacp/v3/runs
-run                    get     GET /api/iacp/v3/runs/{run}
-run                    confirm POST /api/iacp/v3/runs/{run}/actions/apply
-run                    cancel  POST /api/iacp/v3/runs/{run}/actions/cancel
-run                    discard POST /api/iacp/v3/runs/{run}/actions/discard
-run                    force-cancel POST /api/iacp/v3/runs/{run}/actions/force-cancel
-run                    policy-input POST /api/iacp/v3/runs/{run}/policy-input
-runs                   list    GET /api/iacp/v3/workspaces/{workspace}/runs
-state-versions         list    GET /api/iacp/v3/state-versions
-state-version          get     GET /api/iacp/v3/state-versions/{state_version}
-state-version          get-current GET /api/iacp/v3/workspaces/{workspace}/current-state-version
-state-version          create  POST /api/iacp/v3/workspaces/{workspace}/state-versions
-users                  list    GET /api/iacp/v3/users
-user                   get     GET /api/iacp/v3/users/{id}
-vars                   list    GET /api/iacp/v3/vars
-var                    create  POST /api/iacp/v3/vars
-var                    delete  DELETE /api/iacp/v3/vars/{var}
-var                    get     GET /api/iacp/v3/vars/{var}
-var                    update  PATCH /api/iacp/v3/vars/{var}
+account                get     GET /account/details
+access-policy          get     GET /access-policies/{access-policy}
+access-policies        list    GET /access-policies
+apply                  get     GET /applies/{apply}
+configuration-version  get     GET /configuration-versions/{configuration_version}
+ingress-attributes     get     GET /configuration-versions/{configuration_version}/ingress-attributes
+configuration-versions list    GET /configuration-versions?filter[workspace]={workspace}
+configuration-versions create  POST /configuration-versions
+cost-estimate          get     GET /cost-estimates/{cost_estimate}
+cost-estimates         get-log GET /cost-estimates/{cost_estimate}/output
+environment            create  POST /enviroments
+environment            delete  DELETE /enviroments/{environment}
+environment            get     GET /enviroments/{environment}
+environment            update  PATCH /enviroments/{environment}
+environments           list    GET /enviroments?filter[account]={account}
+idps                   list    GET /identity-providers
+idp                    get     GET /identity-providers/{id}
+organizations          list    GET /organizations
+organization           get     GET /organizations/{organization}
+module                 create  POST /organizations/{organization}/registry-modules
+module                 publish POST /registry-modules
+module                 delete  POST /registry-modules/actions/delete/{organization}/{module_name}
+module-provider        delete  POST /registry-modules/actions/delete/{organization}/{module_name}/{provider_name}
+module-version         delete  POST /registry-modules/actions/delete/{organization}/{module_name}/{provider_name}/{version}
+module                 get     GET /registry-modules/{module}
+module                 get-np  GET /registry-modules/{organization}/{module_name}/{module_provider}
+module                 resync  POST /registry-modules/{organization}/{module_name}/{module_provider}/resync
+module                 create-version POST /registry-modules/{organization}/{module_name}/{module_provider}/versions
+module                 resync-version POST /registry-modules/{organization}/{module_name}/{module_provider}/{version}/resync
+workspaces             list    GET /organizations/{organization}/workspaces
+workspace              create  POST /organizations/{organization}/workspaces
+org-workspace          delete  DELETE /organizations/{organization}/workspaces/{workspace_name}
+org-workspace          get     GET /organizations/{organization}/workspaces/{workspace_name}
+org-workspace          update  PATCH /organizations/{organization}/workspaces/{workspace_name}
+workspace              delete  DELETE /workspaces/{workspace}
+workspace              get     GET /workspaces/{workspace}
+workspace              update  PATCH /workspaces/{workspace}
+workspace              lock    POST /workspaces/{workspace}/actions/lock
+workspace              unlock  POST /workspaces/{workspace}/actions/unlock
+plan                   get     GET /plans/{plan}
+policy-check           get     GET /policy-checks/{policy-check}
+policy-check           override POST /policy-checks/{policy_check}/actions/override
+policy-check           get-log GET /policy-checks/{policy_check}/actions/output
+policy-checks          list    GET /runs/{run}/policy-checks
+run                    create  POST /runs
+run                    get     GET /runs/{run}
+run                    apply   POST /runs/{run}/actions/apply
+run                    cancel  POST /runs/{run}/actions/cancel
+run                    discard POST /runs/{run}/actions/discard
+run                    force-cancel POST /runs/{run}/actions/force-cancel
+run                    policy-input POST /runs/{run}/policy-input
+runs                   list    GET /runs?filter[workspace]={workspace}
+state-versions         list    GET /state-versions
+state-version          get     GET /state-versions/{state_version}
+state-version          get-current GET /workspaces/{workspace}/current-state-version
+state-version          create  POST /workspaces/{workspace}/state-versions
+users                  list    GET /users
+user                   get     GET /users/{id}
+vars                   list    GET /vars
+var                    create  POST /vars
+var                    delete  DELETE /vars/{var}
+var                    get     GET /vars/{var}
+var                    update  PATCH /vars/{var}
 !
 }
 
@@ -109,8 +120,9 @@ list-commands ()
 {
   commands | awk '{printf("%s %s %s\n",$1,$2,$4)}' | awk -F"/" '{printf("%s ",$1)
                                                           for (i = 2; i <= NF; i++) {
-                                                          if ( $i ~ "{.*}" ) printf("%s ",$i)
-                                                          }
+                                                          if ( $i ~ "^{.*}$" ) printf("%s ",$i)
+                                                          if ( $i ~ "filter" ) printf("%s ", substr($i,index($i,"=")+1) )
+                                                          }                                                   
                                                           print ""
                                                          }'
 }
@@ -149,12 +161,14 @@ usage ()
 export TZ=UTC
 
 API_SCHEME=https
-API_HOST=my.scalr.com
-API_URL=${API_SCHEME}://${API_HOST}
+API_HOST=scalr.io
+API_URL=${API_SCHEME}://${API_HOST}/api/iacp/v3
+PROFILE=preview
 
-while getopts ":h:" opt; do
+while getopts ":h:p:" opt; do
   case ${opt} in
     h ) API_URL=$OPTARG ;;
+    p ) PROFILE=$OPTARG ;;
     \? ) error "Invalid Option(s) specified" ;;
   esac
 done
